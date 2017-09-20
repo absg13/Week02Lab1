@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author 738377
  */
-@WebServlet(name = "AgeCalculatorServlet", urlPatterns = {"/AgeCalculatorServlet"})
 public class AgeCalculatorServlet extends HttpServlet {
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -33,6 +32,30 @@ public class AgeCalculatorServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        String age = request.getParameter("age");
+        
+        if (age == null) {
+            
+            getServletContext().getRequestDispatcher("/WEB-INF/ageCalculator.jsp").
+                    forward(request, response);
+            
+            return;
+        } 
+        
+        else if (age.isEmpty()) {
+            request.setAttribute("errorMessage", "You must give your current age.");
+           
+            getServletContext().getRequestDispatcher("/WEB-INF/ageCalculator.jsp").
+                    forward(request, response);
+            
+            return;
+        } 
+        
+        int ageNextYear = Integer.parseInt(age) + 1;
+        request.setAttribute("success", "Your age next will be " + ageNextYear);
+        getServletContext().getRequestDispatcher("/WEB-INF/ageCalculator.jsp").
+                forward(request, response);
+        
     }
 
     /**
@@ -47,16 +70,6 @@ public class AgeCalculatorServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
     }// </editor-fold>
 
 }

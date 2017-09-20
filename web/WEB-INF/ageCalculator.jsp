@@ -15,8 +15,11 @@
         <h1>Age next birthday</h1>
         <div>
             <form action="ageCalculator" method="GET">
-                <input type="submit" value="Submit">
+                Enter your current age: <input type="text" name="age" value="${age}">
+                <input type="submit" value="Age next birthday">
             </form>
         </div>
+             ${errorMessage}
+             ${success}
     </body>
 </html>
